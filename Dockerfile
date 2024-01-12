@@ -1,11 +1,5 @@
-# Use the Nginx image from Docker Hub
-FROM nginx
+# Use a base image with HAProxy preinstalled
+FROM haproxy:2.4
 
-# Remove the default Nginx configuration file
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Add our configuration file
-COPY nginx.conf /etc/nginx/conf.d/
-EXPOSE 25565
-VOLUME ("/etc/nginx","/var/www","/var/log/nginx")
-CMD ["nginx", "-g", "daemon off;"]
+# Copy your HAProxy configuration file
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
